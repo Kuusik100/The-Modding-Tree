@@ -56,7 +56,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.eggs.gte(new Decimal("e69420000"))
+	return player.points.gte(new Decimal("e69420000"))
 }
 
 

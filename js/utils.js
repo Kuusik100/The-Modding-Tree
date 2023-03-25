@@ -42,7 +42,7 @@ function canAffordPurchase(layer, thing, cost) {
 		}
 	}
 	else {
-		return !(player[layer].eggs.lt(cost))
+		return !(player[layer].points.lt(cost))
 	}
 }
 
@@ -80,8 +80,8 @@ function buyUpg(layer, id) {
 			}
 		}
 		else {
-			if (player[layer].eggs.lt(cost)) return
-			player[layer].eggs = player[layer].eggs.sub(cost)
+			if (player[layer].points.lt(cost)) return
+			player[layer].points = player[layer].points.sub(cost)
 		}
 	}
 	player[layer].upgrades.push(id);
@@ -209,7 +209,7 @@ function prestigeNotify(layer) {
 	}
 	if (tmp[layer].autoPrestige || tmp[layer].passiveGeneration) return false
 	else if (tmp[layer].type == "static") return tmp[layer].canReset
-	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].eggs.div(10))))
+	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))))
 	else return false
 }
 
