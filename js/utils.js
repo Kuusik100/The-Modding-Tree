@@ -3,7 +3,7 @@
 function respecBuyables(layer) {
 	if (!layers[layer].buyables) return
 	if (!layers[layer].buyables.respec) return
-	if (!player[layer].noRespecConfirm && !confirm(tmp[layer].buyables.respecMessage || "Are you sure you want to respec? This will force you to do a \"" + (tmp[layer].name ? tmp[layer].name : layer) + "\" reset as well!")) return
+	if (!player[layer].noRespecConfirm && !confirm(tmp[layer].buyables.respecMessage || "YOUS URE  ? ?? ? ? this will Egg your \"" + (tmp[layer].name ? tmp[layer].name : layer) + "\"  as well!! ! ")) return
 	run(layers[layer].buyables.respec, layers[layer].buyables)
 	updateBuyableTemp(layer)
 	document.activeElement.blur()
@@ -42,7 +42,7 @@ function canAffordPurchase(layer, thing, cost) {
 		}
 	}
 	else {
-		return !(player[layer].points.lt(cost))
+		return !(player[layer].eggs.lt(cost))
 	}
 }
 
@@ -80,8 +80,8 @@ function buyUpg(layer, id) {
 			}
 		}
 		else {
-			if (player[layer].points.lt(cost)) return
-			player[layer].points = player[layer].points.sub(cost)
+			if (player[layer].eggs.lt(cost)) return
+			player[layer].eggs = player[layer].eggs.sub(cost)
 		}
 	}
 	player[layer].upgrades.push(id);
@@ -209,7 +209,7 @@ function prestigeNotify(layer) {
 	}
 	if (tmp[layer].autoPrestige || tmp[layer].passiveGeneration) return false
 	else if (tmp[layer].type == "static") return tmp[layer].canReset
-	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].points.div(10))))
+	else if (tmp[layer].type == "normal") return (tmp[layer].canReset && (tmp[layer].resetGain.gte(player[layer].eggs.div(10))))
 	else return false
 }
 

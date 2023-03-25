@@ -3,8 +3,8 @@ var needCanvasUpdate = true;
 
 // Don't change this
 const TMT_VERSION = {
-	tmtNum: "2.6.6.2",
-	tmtName: "Fixed Reality"
+	tmtNum: "2.6.69",
+	tmtName: "69"
 }
 
 function getResetGain(layer, useType = null) {
@@ -21,7 +21,7 @@ function getResetGain(layer, useType = null) {
 		if ((!tmp[layer].canBuyMax) || tmp[layer].baseAmount.lt(tmp[layer].requires)) return decimalOne
 		let gain = tmp[layer].baseAmount.div(tmp[layer].requires).div(tmp[layer].gainMult).max(1).log(tmp[layer].base).times(tmp[layer].gainExp).pow(Decimal.pow(tmp[layer].exponent, -1))
 		gain = gain.times(tmp[layer].directMult)
-		return gain.floor().sub(player[layer].points).add(1).max(1);
+		return gain.floor().sub(player[layer].eggs).add(1).max(1);
 	} else if (type=="normal"){
 		if (tmp[layer].baseAmount.lt(tmp[layer].requires)) return decimalZero
 		let gain = tmp[layer].baseAmount.div(tmp[layer].requires).pow(tmp[layer].exponent).times(tmp[layer].gainMult).pow(tmp[layer].gainExp)
@@ -52,7 +52,7 @@ function getNextAt(layer, canMax=false, useType = null) {
 	if (type=="static") 
 	{
 		if (!tmp[layer].canBuyMax) canMax = false
-		let amt = player[layer].points.plus((canMax&&tmp[layer].baseAmount.gte(tmp[layer].nextAt))?tmp[layer].resetGain:0).div(tmp[layer].directMult)
+		let amt = player[layer].eggs.plus((canMax&&tmp[layer].baseAmount.gte(tmp[layer].nextAt))?tmp[layer].resetGain:0).div(tmp[layer].directMult)
 		let extraCost = Decimal.pow(tmp[layer].base, amt.pow(tmp[layer].exponent).div(tmp[layer].gainExp)).times(tmp[layer].gainMult)
 		let cost = extraCost.times(tmp[layer].requires).max(tmp[layer].requires)
 		if (tmp[layer].roundUpCost) cost = cost.ceil()
@@ -163,8 +163,8 @@ function layerDataReset(layer, keep = []) {
 
 
 function addPoints(layer, gain) {
-	player[layer].points = player[layer].points.add(gain).max(0)
-	if (player[layer].best) player[layer].best = player[layer].best.max(player[layer].points)
+	player[layer].eggs = player[layer].eggs.add(gain).max(0)
+	if (player[layer].best) player[layer].best = player[layer].best.max(player[layer].eggs)
 	if (player[layer].total) player[layer].total = player[layer].total.add(gain)
 }
 
@@ -215,7 +215,7 @@ function doReset(layer, force=false) {
 		if (row >= layers[layerResetting].row && (!force || layerResetting != layer)) completeChallenge(layerResetting)
 	}
 
-	player.points = (row == 0 ? decimalZero : getStartPoints())
+	player.eggs = (row == 0 ? decimalZero : getStartPoints())
 
 	for (let x = row; x >= 0; x--) rowReset(x, layer)
 	for (r in OTHER_LAYERS){
@@ -239,7 +239,7 @@ function resetRow(row) {
 		player[layer].unlocked = false
 		if (player[layer].unlockOrder) player[layer].unlockOrder = 0
 	}
-	player.points = getStartPoints()
+	player.eggs = getStartPoints()
 	updateTemp();
 	resizeCanvas();
 }
@@ -281,7 +281,7 @@ function canCompleteChallenge(layer, x)
 		}
 	}
 	else {
-		return !(player.points.lt(challenge.goal))
+		return !(player.eggs.lt(challenge.goal))
 	}
 
 }
@@ -337,7 +337,7 @@ function gameLoop(diff) {
 			diff = limit
 	}
 	addTime(diff)
-	player.points = player.points.add(tmp.pointGen.times(diff)).max(0)
+	player.eggs = player.eggs.add(tmp.pointGen.times(diff)).max(0)
 
 	for (let x = 0; x <= maxRow; x++){
 		for (item in TREE_LAYERS[x]) {
@@ -371,7 +371,7 @@ function gameLoop(diff) {
 			let layer = OTHER_LAYERS[row][item]
 			if (tmp[layer].autoPrestige && tmp[layer].canReset) doReset(layer);
 			if (layers[layer].automate) layers[layer].automate();
-				player[layer].best = player[layer].best.max(player[layer].points)
+				player[layer].best = player[layer].best.max(player[layer].eggs)
 			if (tmp[layer].autoUpgrade) autobuyUpgrades(layer)
 		}
 	}

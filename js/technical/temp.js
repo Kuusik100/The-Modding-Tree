@@ -45,7 +45,7 @@ function setupTemp() {
 	}
 
 	tmp.other = {
-		lastPoints: player.points || decimalZero,
+		lastPoints: player.eggs || decimalZero,
 		oomps: decimalZero,
 		screenWidth: 0,
 		screenHeight: 0,
