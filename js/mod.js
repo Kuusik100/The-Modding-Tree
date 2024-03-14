@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "the egg tree ver. 1.00 a",
+	name: "the egg tree ver. 1.01 a",
 	id: "mymod",
 	author: "nobody",
 	pointsName: "eggs",
@@ -13,8 +13,8 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.00 a",
-	name: "i mean its pretty j ngl",
+	num: "1.01 a",
+	name: "12 months no updates",
 }
 
 let changelog = `<h1>chanegle log:</h1><br>
@@ -46,6 +46,8 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	if (hasUpgrade('p', 11)) gain = gain.times(2.69)
 	if (hasUpgrade('p', 12)) gain = gain.times(upgradeEffect('p', 12))
+	if (hasUpgrade('p', 14)) gain = gain.times(8)
+	if (hasUpgrade('p', 21)) gain = gain.times(11.111111)
 	if (hasUpgrade('g', 11)) gain = gain.times(69.420)
 
 	return gain

@@ -58,6 +58,28 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
 
         },
+        14: {
+            title: "egg inc's premium eggs",
+            description: "power your j point production by ^1.10",
+            
+            cost: new Decimal(226),
+            effect() {
+                return player.points.pow(1.10)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+
+        },
+        21: {
+            title: "the holy grail of egg",
+            description: "multiply your egg production by ×11.11111111",
+            
+            cost: new Decimal(1000),
+            
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"× boost by holy grail" },
+
+        },
+
+
 
 
     },
