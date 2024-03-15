@@ -78,6 +78,18 @@ addLayer("p", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"× boost by holy grail" },
 
         },
+        22: {
+            title: "the holy grail of j",
+            description: "multiply your j production by ×22.50000000",
+            
+            cost: new Decimal(25000),
+            effect() {
+                return player.points.times(22.5)
+            },
+            
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"× boost by holy grail" },
+
+        },
 
 
 
